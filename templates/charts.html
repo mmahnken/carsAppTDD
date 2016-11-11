@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Chart of Brands
+{% endblock %}
+
+{% block extrajs %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
+{% endblock %}
+
+{% block pagecontent %}
+    <h1>Brands Counts</h1>
+   <canvas id="mine"></canvas>
+
+   <script>
+     var ctx = $('#mine').get(0).getContext('2d');
+
+     var options = {responsive: true};
+
+     $.get("/chart-data.json",  makeChart);
+
+     function makeChart(dataFromServer){
+        var listOfLabels = dataFromServer.labels;
+        var listOfDataPoints = dataFromServer.data_points;
+        var listOfColors = dataFromServer.colors;
+        // var listOfBackgroundColors = dataFromServer.background_colors;
+        debugger; 
+        var dataFormatted = {
+                "labels": listOfLabels,
+                "datasets": [
+                    {
+                        "data": listOfDataPoints,
+                        "backgroundColor": listOfColors,
+                        // "hoverBackgroundColor": listOfBackgroundColors,
+                    }
+                ]
+        };
+
+        var myDonutChart = new Chart(ctx, {
+                                              type: 'doughnut',
+                                              data: dataFormatted,
+                                              options: options
+                                            });
+     }
+
+
+   </script>
+
+{% endblock %}

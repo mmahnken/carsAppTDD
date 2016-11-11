@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+All Cars
+{% endblock %}
+
+{% block pagecontent %}
+    <h1>Here are all the cars in the database.</h1>
+    {% for car in cars %}
+        <p>{{ car.brand.name }} {{ car.name }}</p>
+    {% endfor %}
+{% endblock %}

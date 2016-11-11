@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Charts
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
+{% endblock %}
+
+{% block pagecontent %}
+<canvas id="my-chart">
+</canvas>
+<div id="legend">
+</div>
+
+<script>
+    // select the target div from the DOM and define customized options.
+    var ctx_donut = $("#my-chart").get(0).getContext("2d");
+    var options = {
+        responsive: true,
+        legendCallback: function(chart){
+            var labels = chart.data.labels;
+            var colors = chart.data.datasets[0].backgroundColor;
+            var legHTML = "";
+            for (var i=0; i<labels.length; i++){
+                $('#legend').append("<p id='"+labels[i]+"'>" + labels[i] +"</p>");
+                $('#'+labels[i]).css('color', colors[i]);
+            }
+        }
+    };
+
+    // get the data!
+    $.get('/chart-data', showCharts);
+
+    // make a chart
+    function showCharts(data){
+        var myDonutChart = new Chart(ctx_donut, {
+                                                  type: 'doughnut',
+                                                  data: data,
+                                                  options: options
+                                                });
+
+        $('#legend').html(myDonutChart.generateLegend());
+    }
+    
+</script>
+
+{% endblock %}
