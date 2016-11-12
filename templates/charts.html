@@ -10,9 +10,17 @@
 
 {% block pagecontent %}
     <h1>Brands Counts</h1>
-   <canvas id="mine"></canvas>
+    <div>
+        <h2> Add a brand/model!</h2>
+        Brand name<input type="text" id="brand">
+        Model name<input type="text" id="model">
+        Model year<input type="text" id="model-year">
 
+    </div>
+   <canvas id="mine"></canvas>
+   <script src="/static/brands.js"></script>
    <script>
+
      var ctx = $('#mine').get(0).getContext('2d');
 
      var options = {responsive: true};

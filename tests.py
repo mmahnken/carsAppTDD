@@ -19,8 +19,7 @@ class CarsIntegrationTest(unittest.TestCase):
         result = self.client.get('/charts')
         some_html = result.data
 
-        self.assertIn("<h1>Brand Counts</h1>")
-        self.assertIn("id='legend'", some_html)        
+        self.assertIn("<h1>Brands Counts</h1>", some_html)
         self.assertIn("<canvas", some_html)
 
 
